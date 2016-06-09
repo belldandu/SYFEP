@@ -1,0 +1,8 @@
+body {text-align: center; margin: 0px; padding: 0px; font-size: 12px; font-family: Arial, Tahoma, Helvetica; background-color: #000000;}
+footer {margin-top: 20px; color: #ddd; font-size: 10px;}
+a {color: #888; text-decoration: none;}
+#login-container { width: 500px; margin: 0 auto; padding: 10px;}
+#login {margin: 20px auto 0 auto;  border: 2px solid #FFD324; background: #FFF6BF; color: #514721; padding: 10px; width: 250px;}
+.notice {padding: .8em; margin: 15px;border:2px solid #ddd; text-align: left; background: #FFF6BF; color: #514721; border-color: #FFD324;}
+.notice a {color:#514721; text-decoration: underline;}
+.notice ul {margin: 10px 0px 0px 20px;}
