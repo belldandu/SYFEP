@@ -96,8 +96,8 @@
 	$funny = (isset($_GET['f']) && !empty($_GET['f'])) ? $_GET['f'] : null;
 	$title = (isset($_GET['t']) && !empty($_GET['t'])) ? $_GET['t'] : null;
 	$error = (isset($_GET['e']) && !empty($_GET['e']) && array_key_exists($_GET['e'], $_err)) ? $_GET['e'] : "unknown";
-	$unknown = $error === "unknown" && (isset($_GET['e']) && !empty($_GET['e']) && !array_key_exists($_GET['e'], $_err)) ? $_GET['e'] : "418";
-	http_response_code(($error === "unknown") ? 418 : intval($error));
+	$code = $error === "unknown" && (isset($_GET['e']) && !empty($_GET['e']) && !array_key_exists($_GET['e'], $_err)) ? $_GET['e'] : "418";
+	http_response_code(intval($code));
 	$er = $_err[$error];
 	$e = $er[array_rand($er)];
 ?>
@@ -138,7 +138,7 @@
 						</a>
 						<?php
 							} else {
-								echo "{$unknown} {$e['name']}";
+								echo "{$code} {$e['name']}";
 							}
 						?>
 					</h1>
