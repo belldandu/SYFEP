@@ -91,12 +91,24 @@
 			]
 		]
 	];
+	
+	function isParam($l) {
+                return (isset($_GET[$l]) && !empty($_GET[$l]));
+        }
 
-	$image = (isset($_GET['i']) && !empty($_GET['i'])) ? $_GET['i'] : null;
-	$funny = (isset($_GET['f']) && !empty($_GET['f'])) ? $_GET['f'] : null;
-	$title = (isset($_GET['t']) && !empty($_GET['t'])) ? $_GET['t'] : null;
-	$error = (isset($_GET['e']) && !empty($_GET['e']) && array_key_exists($_GET['e'], $_err)) ? $_GET['e'] : "unknown";
-	$code = $error === "unknown" && (isset($_GET['e']) && !empty($_GET['e']) && !array_key_exists($_GET['e'], $_err)) ? $_GET['e'] : "418";
+        function ecode() {
+                if(isParam('e')) {
+                        return $_GET['e'];
+                } else {
+                        return "418";
+                }
+        }
+
+        $image = isParam('i') ? $_GET['i'] : null;
+        $funny = isParam('f') ? $_GET['f'] : null;
+        $title = isParam('t') ? $_GET['t'] : null;
+        $error = (isParam('e') && array_key_exists($_GET['e'], $_err)) ? $_GET['e'] : "unknown";
+        $code = ecode();
 	http_response_code(intval($code));
 	$er = $_err[$error];
 	$e = $er[array_rand($er)];
