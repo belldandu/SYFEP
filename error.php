@@ -19,6 +19,17 @@
 				]
 			]
 		],
+		"400" => [
+			[
+				"link" => "http://bfy.tw/6WKq",
+				"name" => "400 Bad Request",
+				"silly" => "Houston, we have a problem.",
+				"type" => "client",
+				"messages" => [
+					"The server cannot or will not process the request due to an apparent client error (e.g., malformed request syntax, invalid request message framing, or deceptive request routing)."
+				]
+			]
+		],
 		"401" => [
 			[
 				"link" => "http://bfy.tw/3PQC",
@@ -60,10 +71,25 @@
 			[
 				"link" => "http://bfy.tw/5CPH",
 				"name" => "405 Method Not Allowed",
-				"silly" => "Sorry but i don't Like it in the Butt. "  . implode(array_map('unichr', [40, 32, 865, 176, 32, 860, 662, 32, 865, 176, 41])),
+				"silly" => "Sorry, but i don't Like it in the Butt. "  . implode(array_map('unichr', [40, 32, 865, 176, 32, 860, 662, 32, 865, 176, 41])),
 				"type" => "client",
 				"messages" => [
 					"A request method is not supported for the requested resource; for example, a GET request on a form which requires data to be presented via POST, or a PUT request on a read-only resource."
+				]
+			]
+		],
+		"410" => [
+			[
+				"link" => "http://bfy.tw/6WKy",
+				"name" => "410 Gone",
+				"silly" => "Hit the wall i have",
+				"type" => "client",
+				"messages" => [
+					"Indicates that the resource requested is no longer available and will not be available again.",
+					"This should be used when a resource has been intentionally removed and the resource should be purged.",
+					"Upon receiving a 410 status code, the client should not request the resource in the future.",
+					"Clients such as search engines should remove the resource from their indices.",
+					"Most use cases do not require clients and search engines to purge the resource, and a \"404 Not Found\" may be used instead."
 				]
 			]
 		],
@@ -91,24 +117,24 @@
 			]
 		]
 	];
-	
+
 	function isParam($l) {
-                return (isset($_GET[$l]) && !empty($_GET[$l]));
-        }
+		return (isset($_GET[$l]) && !empty($_GET[$l]));
+	}
 
-        function ecode() {
-                if(isParam('e')) {
-                        return $_GET['e'];
-                } else {
-                        return "418";
-                }
-        }
+	function ecode() {
+		if(isParam('e')) {
+			return $_GET['e'];
+		} else {
+			return "418";
+		}
+	}
 
-        $image = isParam('i') ? $_GET['i'] : null;
-        $funny = isParam('f') ? $_GET['f'] : null;
-        $title = isParam('t') ? $_GET['t'] : null;
-        $error = (isParam('e') && array_key_exists($_GET['e'], $_err)) ? $_GET['e'] : "unknown";
-        $code = ecode();
+	$image = isParam('i') ? $_GET['i'] : null;
+	$funny = isParam('f') ? $_GET['f'] : null;
+	$title = isParam('t') ? $_GET['t'] : null;
+	$error = (isParam('e') && array_key_exists($_GET['e'], $_err)) ? $_GET['e'] : "unknown";
+	$code = ecode();
 	http_response_code(intval($code));
 	$er = $_err[$error];
 	$e = $er[array_rand($er)];
@@ -120,9 +146,9 @@
 	<head profile="http://gmpg.org/xfn/11">
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<title>
-			<?php 
+			<?php
 				if($title) {
-					echo "{$title} | {$e["name"]}"; 
+					echo "{$title} | {$e["name"]}";
 				} else {
 					echo "{$e["name"]}";
 				}
