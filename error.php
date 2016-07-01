@@ -209,7 +209,7 @@
 	</body>
 	<footer>
 		<a href="/">Home</a><br/>
-		<font size="1">Error Page &copy;2013-2016 Belldandu All Rights Reserved.</font>
+		<font size="1"><a href="https://github.com/belldandu/SYFEP/">SYFEP</a> &copy;2013-2016 Belldandu All Rights Reserved.</font>
 		<?php
 			$ip = $_SERVER['REMOTE_ADDR'];
 			$host = gethostbyaddr($ip);
