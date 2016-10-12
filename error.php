@@ -190,6 +190,9 @@
 		public function getMessages() {
 			return join("<hr>", $this->error["messages"]);
 		}
+		public function getPadding() {
+			return "<!-- a padding to disable MSIE and Chrome friendly error page -->";
+		}
 		public function getUserInfo() {
 			return "<h2>Your IP address : {$this->getUserIp()} | Your hostname : {$this->getUserHost()}</h2>";
 		}
@@ -232,14 +235,11 @@
 						?>
 					</h2>
 				</center>
-				<!-- a padding to disable MSIE and Chrome friendly error page -->
-				<!-- a padding to disable MSIE and Chrome friendly error page -->
-				<!-- a padding to disable MSIE and Chrome friendly error page -->
-				<!-- a padding to disable MSIE and Chrome friendly error page -->
-				<!-- a padding to disable MSIE and Chrome friendly error page -->
-				<!-- a padding to disable MSIE and Chrome friendly error page -->
-				<!-- a padding to disable MSIE and Chrome friendly error page -->
-				<!-- a padding to disable MSIE and Chrome friendly error page -->
+				<?php 
+					for($i = 0; $i < 10; $i++) {
+						echo $syfep->getPadding();
+					}
+				?>
 			</div>
 		</div>
 		<!--Not Christmas damnit script type="text/javascript" src="/j/snowstorm.js"></script-->
