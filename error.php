@@ -2,16 +2,16 @@
 	error_reporting(E_ALL);
 	ini_set("display_errors", 1);
 	class SYFEP {
-		private function isParam($l) {
-			return (isset($_GET[$l]) && !empty($_GET[$l]));
+		private function getValue($l, $v) {
+			return (isset($l[$v]) && !empty($l[$v]));
 		}
 		private function getParam($p, $o) {
-			if($this->isParam($p)) {
+			if($this->getValue($_GET, $p)) {
 				return $_GET[$p];
 			}
 			return $o;
 		}
-		private function unichr($u) {
+		private function getEnt($u) {
 			return mb_convert_encoding('&#' . intval($u) . ';', 'UTF-8', 'HTML-ENTITIES');
 		}
 		private function getId() {
@@ -19,7 +19,7 @@
 			if($i) {
 				if(array_key_exists($i, $this->errors)) {
 					return $i;
-				}	
+				}
 			}
 			return "unknown";
 		}
@@ -28,7 +28,7 @@
 			return $e[array_rand($e)];
 		}
 		protected function getUserIp() {
-			if(isset($_SERVER['REMOTE_ADDR']) && !empty($_SERVER['REMOTE_ADDR'])){
+			if($this->getValue($_SERVER, 'REMOTE_ADDR')){
 				return $_SERVER['REMOTE_ADDR'];
 			}
 			return '0.0.0.0';
@@ -109,7 +109,7 @@
 					[
 						"link" => "http://bfy.tw/5CPH",
 						"name" => "405 Method Not Allowed",
-						"silly" => "Sorry, but i don't Like it in the Butt. "  . implode(array_map(array($this, 'unichr'), [40, 32, 865, 176, 32, 860, 662, 32, 865, 176, 41])),
+						"silly" => "Sorry, but i don't Like it in the Butt. "  . implode(array_map(array($this, 'getEnt'), [40, 32, 865, 176, 32, 860, 662, 32, 865, 176, 41])),
 						"type" => "client",
 						"messages" => [
 							"A request method is not supported for the requested resource; for example, a GET request on a form which requires data to be presented via POST, or a PUT request on a read-only resource."
@@ -146,11 +146,11 @@
 					[
 						"link" => null,
 						"name" => "Unknown",
-						"silly" => "HUE HUE HUE You got me. I don't know this error. " . implode(array_map(array($this, 'unichr'), [40, 32, 865, 176, 32, 860, 662, 32, 865, 176, 41])),
+						"silly" => "HUE HUE HUE You got me. I don't know this error. " . implode(array_map(array($this, 'getEnt'), [40, 32, 865, 176, 32, 860, 662, 32, 865, 176, 41])),
 						"type" => "unknown",
 						"messages" => [
 							"This error has not been configured yet HUE HUE HUE.",
-							implode(array_map(array($this, 'unichr'), [40, 32, 865, 176, 32, 860, 662, 32, 865, 176, 41]))
+							implode(array_map(array($this, 'getEnt'), [40, 32, 865, 176, 32, 860, 662, 32, 865, 176, 41]))
 						]
 					]
 				]
