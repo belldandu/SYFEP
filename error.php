@@ -1,4 +1,4 @@
-<?php	
+<?php 
 	error_reporting(E_ALL);
 	ini_set("display_errors", 1);
 	class SYFEP {
@@ -35,6 +35,11 @@
 		}
 		protected function getUserHost() {
 			return gethostbyaddr($this->getUserIp());
+		}
+		protected function getUserAgent() {
+			if($this->getValue($_SERVER, 'HTTP_USER_AGENT')){
+				return $_SERVER['HTTP_USER_AGENT'];
+			}
 		}
 		public $image, $funny, $title, $code, $errors, $error, $id;
 		public function __construct(){
@@ -194,7 +199,7 @@
 			return "<!-- a padding to disable MSIE and Chrome friendly error page -->";
 		}
 		public function getUserInfo() {
-			return "<h2>Your IP address : {$this->getUserIp()} | Your hostname : {$this->getUserHost()}</h2>";
+			return "<h2>Your IP address : {$this->getUserIp()} | Your hostname : {$this->getUserHost()}<hr>Your User Agent : {$this->getUserAgent()}</h2>";
 		}
 	};
 	
