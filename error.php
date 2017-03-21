@@ -14,12 +14,9 @@
 		private function getEnt($u) {
 			return mb_convert_encoding('&#' . intval($u) . ';', 'UTF-8', 'HTML-ENTITIES');
 		}
-		private function getId() {
-			$i = $this->getParam('e', false); 
-			if($i) {
-				if(array_key_exists($i, $this->errors)) {
-					return $i;
-				}
+		private function getId($i) {
+			if(array_key_exists($i, $this->errors)) {
+				return $i;
 			}
 			return "unknown";
 		}
@@ -46,7 +43,7 @@
 			$this->image = $this->getParam('i', null);
 			$this->funny = $this->getParam('f', null);
 			$this->title = $this->getParam('t', null);
-			$this->code = $this->getParam('e', 418);
+			$this->code = $this->getParam('e', http_response_code());
 			$this->errors = [
 				"200" => [
 					[
@@ -147,6 +144,17 @@
 						]
 					]
 				],
+				"502" => [
+					[
+						"link" => "http://bfy.tw/Dgg",
+						"name" => "502 Bad Gateway",
+						"silly" => "Not my Problem :)",
+						"type" => "server",
+						"messages" => [
+							"The server was acting as a gateway or proxy and received an invalid response from the upstream server."
+						]
+					]
+				],
 				"unknown" => [
 					[
 						"link" => null,
@@ -160,10 +168,9 @@
 					]
 				]
 			];
-			$this->id = $this->getId();
+			$this->id = $this->getId($this->code);
 			$this->error = $this->getError($this->id);
 		}
-		
 		public function getCode() {
 			return $this->code;
 		}
@@ -182,7 +189,7 @@
 			if ($this->error["link"]) {
 				return "<a href=\"{$this->error['link']}\"  target=\"_blank\">{$this->error['name']}</a>";
 			}
-			return "{$this->code} {$this->error['name']}";			
+			return "{$this->code} {$this->error['name']}";
 		}
 		public function getSilly() {
 			if ($this->funny) {
@@ -202,7 +209,7 @@
 			return "<h2>Your IP address : {$this->getUserIp()} | Your hostname : {$this->getUserHost()}<hr>Your User Agent : {$this->getUserAgent()}</h2>";
 		}
 	};
-	
+
 	$syfep = new SYFEP();
 	http_response_code(intval($syfep->getCode()));
 ?>
